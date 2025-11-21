@@ -122,8 +122,8 @@ class Game {
         // 木头架子高度约为屏幕高度的60%，纸飞机放在架子顶部略微高出一点
         // 地面在 height - 150，架子从地面向上延伸约60%的屏幕高度
         const standHeight = this.height * 0.6;
-        // 提高纸飞机中心点，让它比顶板略高一点
-        const airplaneOffsetAboveStand = 8; // px
+        // 再提高纸飞机中心点，让它比顶板明显高一些
+        const airplaneOffsetAboveStand = 16; // px
         this.airplane.y = this.height - 150 - standHeight - airplaneOffsetAboveStand;
         this.airplane.velocity = { x: 0, y: 0 };
         this.airplane.angle = 0;
@@ -187,7 +187,7 @@ class Game {
             this.airplane.velocity.y = 0;
             this.airplane.velocity.x = 0;
             const standHeight = this.height * 0.6;
-            const airplaneOffsetAboveStand = 8; // px, keep in sync with resetPhysics
+            const airplaneOffsetAboveStand = 16; // px, keep in sync with resetPhysics
             this.airplane.y = this.height - 150 - standHeight - airplaneOffsetAboveStand;
         }
 
