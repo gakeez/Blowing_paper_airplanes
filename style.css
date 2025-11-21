@@ -1,0 +1,202 @@
+:root {
+    --primary-color: #4facfe;
+    --secondary-color: #00f2fe;
+    --accent-color: #ff6b6b;
+    --text-color: #2d3436;
+    --bg-gradient: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    --font-main: 'Outfit', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    font-family: var(--font-main);
+    overflow: hidden;
+    background: var(--bg-gradient);
+    color: var(--text-color);
+    height: 100vh;
+    width: 100vw;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.screen.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: #636e72;
+    margin-bottom: 3rem;
+}
+
+.primary-btn {
+    padding: 1rem 3rem;
+    font-size: 1.5rem;
+    font-family: var(--font-main);
+    font-weight: 500;
+    color: white;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(79, 172, 254, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px rgba(79, 172, 254, 0.5);
+}
+
+.primary-btn:active {
+    transform: translateY(1px);
+}
+
+.permission-note {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #b2bec3;
+}
+
+/* HUD */
+#game-hud {
+    justify-content: flex-start;
+    padding-top: 2rem;
+}
+
+.score-container {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.label {
+    display: block;
+    font-size: 0.9rem;
+    color: #636e72;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#distance-display {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.wind-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.status-text {
+    position: absolute;
+    bottom: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+}
+
+#wind-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transition: width 0.1s linear;
+}
+
+.threshold-marker {
+    position: absolute;
+    left: 60%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+/* Game Over */
+#game-over-screen h2 {
+    font-size: 3rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.final-score {
+    font-size: 1.5rem;
+    color: #636e72;
+    margin-bottom: 2rem;
+}
+
+#final-distance {
+    font-weight: 700;
+    color: var(--primary-color);
+}

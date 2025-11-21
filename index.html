@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Blowing Paper Airplanes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+
+        <div id="ui-layer">
+            <div id="start-screen" class="screen active">
+                <h1>Paper Wings</h1>
+                <p class="subtitle">Blow into your microphone to fly!</p>
+                <button id="start-btn" class="primary-btn">Start Flying</button>
+                <p class="permission-note">Microphone access required</p>
+            </div>
+
+            <div id="game-hud" class="screen">
+                <div class="score-container">
+                    <span class="label">Distance</span>
+                    <span id="distance-display">0.0m</span>
+                </div>
+                <div class="wind-indicator">
+                    <div id="wind-bar"></div>
+                    <div class="threshold-marker"></div>
+                </div>
+            </div>
+
+            <div id="game-over-screen" class="screen">
+                <h2>Flight Ended</h2>
+                <p class="final-score">You flew <span id="final-distance">0.0m</span></p>
+                <button id="restart-btn" class="primary-btn">Fly Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
