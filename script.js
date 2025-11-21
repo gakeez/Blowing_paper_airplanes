@@ -119,10 +119,12 @@ class Game {
 
     resetPhysics() {
         this.airplane.x = 100;
-        // 木头架子高度约为屏幕高度的60%，纸飞机放在架子顶部
+        // 木头架子高度约为屏幕高度的60%，纸飞机放在架子顶部略微高出一点
         // 地面在 height - 150，架子从地面向上延伸约60%的屏幕高度
         const standHeight = this.height * 0.6;
-        this.airplane.y = this.height - 150 - standHeight;
+        // 提高纸飞机中心点，让它比顶板略高一点
+        const airplaneOffsetAboveStand = 8; // px
+        this.airplane.y = this.height - 150 - standHeight - airplaneOffsetAboveStand;
         this.airplane.velocity = { x: 0, y: 0 };
         this.airplane.angle = 0;
         this.distance = 0;
@@ -181,12 +183,12 @@ class Game {
         if (this.hasStartedBlowing) {
             this.airplane.velocity.y += GRAVITY;
         } else {
-            // Keep stationary on stand
+            // Keep stationary on stand (slightly above the platform)
             this.airplane.velocity.y = 0;
             this.airplane.velocity.x = 0;
-            // 锁定在木头架子顶部（屏幕高度的60%位置）
             const standHeight = this.height * 0.6;
-            this.airplane.y = this.height - 150 - standHeight;
+            const airplaneOffsetAboveStand = 8; // px, keep in sync with resetPhysics
+            this.airplane.y = this.height - 150 - standHeight - airplaneOffsetAboveStand;
         }
 
         // Drag
@@ -274,11 +276,26 @@ class Game {
         // Draw Distance Markers on Ground
         this.ctx.fillStyle = '#b2bec3';
         this.ctx.font = '12px Outfit';
-        const startMarker = Math.floor(this.camera.x / 200) * 200;
-        for (let m = startMarker; m < this.camera.x + this.width; m += 200) {
+
+        // Use the stand center (x = 100) as the 0m origin, with markers every 200px (4m)
+        const markerSpacing = 200;
+        const originX = 100;
+
+        // Find the first marker within the current viewport, aligned relative to originX
+        const startMarker = Math.floor((this.camera.x - originX) / markerSpacing) * markerSpacing + originX;
+
+        for (let m = startMarker; m < this.camera.x + this.width; m += markerSpacing) {
             const screenX = m - this.camera.x;
-            this.ctx.fillRect(screenX, groundY, 2, 10);
-            this.ctx.fillText(`${m / 50}m`, screenX + 5, groundY + 20);
+            const meters = (m - originX) / 50; // Keep in sync with distance calculation
+
+            if (meters >= 0) {
+                // Draw main tick with label
+                this.ctx.fillRect(screenX, groundY, 2, 10);
+                this.ctx.fillText(`${meters}m`, screenX + 5, groundY + 20);
+            } else {
+                // For negative positions (left of the stand), draw a smaller tick without label
+                this.ctx.fillRect(screenX, groundY, 2, 6);
+            }
         }
 
         // Draw Airplane
@@ -334,26 +351,28 @@ class Game {
     }
 
     drawStand() {
-        const standX = 100 - this.camera.x;
+        // Center the stand at world X = 100 so the airplane (also at X = 100)
+        // visually sits in the middle of the top platform on all screen sizes.
+        const standCenterX = 100 - this.camera.x;
         const standBaseY = this.height - 150; // Ground level
         // 木头架子高度为屏幕高度的60%
         const standHeight = this.height * 0.6;
         const standTopY = standBaseY - standHeight;
 
         // Only draw if visible
-        if (standX < -50 || standX > this.width) return;
+        if (standCenterX < -50 || standCenterX > this.width) return;
 
         this.ctx.save();
         this.ctx.fillStyle = '#8d6e63'; // Wood color
 
-        // Main post
-        this.ctx.fillRect(standX + 10, standTopY, 10, standHeight);
+        // Main post (centered under the platform/airplane)
+        this.ctx.fillRect(standCenterX - 5, standTopY, 10, standHeight);
 
         // Base
-        this.ctx.fillRect(standX, standBaseY - 10, 30, 10);
+        this.ctx.fillRect(standCenterX - 15, standBaseY - 10, 30, 10);
 
-        // Top platform
-        this.ctx.fillRect(standX, standTopY, 40, 5);
+        // Top platform (centered at standCenterX)
+        this.ctx.fillRect(standCenterX - 20, standTopY, 40, 5);
 
         this.ctx.restore();
     }
