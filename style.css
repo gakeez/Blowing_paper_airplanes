@@ -200,3 +200,174 @@ h1 {
     font-weight: 700;
     color: var(--primary-color);
 }
+
+/* ========================================
+   Responsive Design - Mobile Optimization
+   ======================================== */
+
+/* Tablet and small laptops */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .primary-btn {
+        padding: 0.75rem 2rem;
+        font-size: 1.1rem;
+    }
+
+    .permission-note {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+    }
+
+    /* HUD - Move to top right corner */
+    #game-hud {
+        justify-content: flex-start;
+        align-items: flex-end;
+        padding-top: 1rem;
+        padding-right: 1rem;
+    }
+
+    .score-container {
+        padding: 0.6rem 1.2rem;
+    }
+
+    .label {
+        font-size: 0.75rem;
+    }
+
+    #distance-display {
+        font-size: 1.5rem;
+    }
+
+    .wind-indicator {
+        width: 150px;
+        height: 8px;
+        bottom: 1.5rem;
+    }
+
+    /* Game Over Screen */
+    #game-over-screen h2 {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .final-score {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Mobile landscape */
+@media (max-width: 640px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+    }
+
+    .score-container {
+        padding: 0.5rem 1rem;
+    }
+
+    #distance-display {
+        font-size: 1.3rem;
+    }
+
+    .wind-indicator {
+        width: 130px;
+    }
+}
+
+/* Mobile portrait */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .primary-btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 40px;
+    }
+
+    .permission-note {
+        font-size: 0.75rem;
+    }
+
+    #game-hud {
+        padding-top: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .score-container {
+        padding: 0.5rem 1rem;
+        border-radius: 15px;
+    }
+
+    .label {
+        font-size: 0.7rem;
+    }
+
+    #distance-display {
+        font-size: 1.2rem;
+    }
+
+    .wind-indicator {
+        width: 120px;
+        height: 6px;
+        bottom: 1rem;
+    }
+
+    #game-over-screen h2 {
+        font-size: 1.5rem;
+    }
+
+    .final-score {
+        font-size: 1rem;
+        margin-bottom: 1.25rem;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+    h1 {
+        font-size: 1.25rem;
+    }
+
+    .subtitle {
+        font-size: 0.85rem;
+    }
+
+    .primary-btn {
+        padding: 0.5rem 1.25rem;
+        font-size: 0.95rem;
+    }
+
+    .score-container {
+        padding: 0.4rem 0.8rem;
+    }
+
+    #distance-display {
+        font-size: 1.1rem;
+    }
+
+    .wind-indicator {
+        width: 100px;
+    }
+}
