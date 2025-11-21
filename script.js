@@ -219,9 +219,10 @@ class Game {
             this.endGame();
         }
 
-        // Ceiling check
-        if (this.airplane.y < 0) {
-            this.airplane.y = 0;
+        // Ceiling check - limit max height to 80% of screen (top 20% cannot be reached)
+        const ceilingY = this.height * 0.2;
+        if (this.airplane.y < ceilingY) {
+            this.airplane.y = ceilingY;
             this.airplane.velocity.y *= 0.5;
         }
 
