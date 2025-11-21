@@ -1,0 +1,10 @@
+name = "blowing-paper-airplanes"
+main = "src/index.js"
+compatibility_date = "2025-11-21"
+
+[assets]
+# 当前项目静态资源在项目根目录下，如需要可以改成 "./public"
+directory = "."
+binding = "ASSETS"
+not_found_handling = "404-page"
+

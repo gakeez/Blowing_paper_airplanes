@@ -119,7 +119,10 @@ class Game {
 
     resetPhysics() {
         this.airplane.x = 100;
-        this.airplane.y = this.height - 250; // Start higher up, on the stand (ground is at height-150, stand is ~100px tall)
+        // 木头架子高度约为屏幕高度的60%，纸飞机放在架子顶部
+        // 地面在 height - 150，架子从地面向上延伸约60%的屏幕高度
+        const standHeight = this.height * 0.6;
+        this.airplane.y = this.height - 150 - standHeight;
         this.airplane.velocity = { x: 0, y: 0 };
         this.airplane.angle = 0;
         this.distance = 0;
@@ -181,7 +184,9 @@ class Game {
             // Keep stationary on stand
             this.airplane.velocity.y = 0;
             this.airplane.velocity.x = 0;
-            this.airplane.y = this.height - 250; // Lock Y position
+            // 锁定在木头架子顶部（屏幕高度的60%位置）
+            const standHeight = this.height * 0.6;
+            this.airplane.y = this.height - 150 - standHeight;
         }
 
         // Drag
@@ -227,8 +232,11 @@ class Game {
                 this.spawnCloud(this.camera.x + this.width + Math.random() * 200);
             }
         }
-        // Remove old clouds
-        this.clouds = this.clouds.filter(c => c.x + c.width > this.camera.x - 100);
+        // Remove old clouds - 考虑视差效果，云朵的实际屏幕位置是 cloud.x - camera.x * 0.5
+        this.clouds = this.clouds.filter(c => {
+            const parallaxX = c.x - this.camera.x * 0.5;
+            return parallaxX + c.width > -100; // 只有完全移出屏幕左侧才移除
+        });
 
         // Update Particles
         this.particles.forEach(p => {
@@ -327,7 +335,8 @@ class Game {
     drawStand() {
         const standX = 100 - this.camera.x;
         const standBaseY = this.height - 150; // Ground level
-        const standHeight = 100;
+        // 木头架子高度为屏幕高度的60%
+        const standHeight = this.height * 0.6;
         const standTopY = standBaseY - standHeight;
 
         // Only draw if visible
@@ -344,14 +353,6 @@ class Game {
 
         // Top platform
         this.ctx.fillRect(standX, standTopY, 40, 5);
-
-        // Diagonal support
-        this.ctx.beginPath();
-        this.ctx.moveTo(standX + 15, standTopY + 20);
-        this.ctx.lineTo(standX + 35, standTopY + 5);
-        this.ctx.strokeStyle = '#6d4c41';
-        this.ctx.lineWidth = 3;
-        this.ctx.stroke();
 
         this.ctx.restore();
     }
